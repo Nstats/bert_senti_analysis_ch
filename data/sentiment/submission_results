@@ -1,0 +1,14 @@
+score   pretrained      classifier      data_used   data_preprocessing          training_epoch  f1 on train paras
+08.26
+0.7437  wwm_ext         3_layer_MLP     only title  None                        10              0.9987      max_l64
+0.7598  wwm_ext         3_layer_MLP     only title  None                        100             0.9991      max_l64
+
+08.27
+0.7763  wwm_ext         3_layer_MLP     mix         None                        85              0.9992      max_l64
+0.7742  wwm_ext         3_layer_MLP     mix         None                        100             0.9992      max_l64
+0.7686  wwm_ext         3_layer_MLP     mix         \n \t removed               65              0.9991      max_l64
+0.7744  wwm_ext         3_layer_MLP     mix         \n \t removed               100             0.9992      max_l64
+0.6695  wwm_ext         3_layer_MLP     content     \n \t removed               100             0.9989      max_l64
+
+0.7755  bert_ch         3_layer_MLP     mix         \n \t removed               85              0.9992      max_l64
+0.7743  bert_ch         3_layer_MLP     mix         \n \t removed               100             0.9992      max_l64
