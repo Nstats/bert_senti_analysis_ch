@@ -1,5 +1,5 @@
 # BERT_sentiment_analysis
-* train the model: ./senti_train.sh
+* train the model: nohup ./senti_train.sh news >> './data/sentiment/output.txt' 2>&1 &
 * evaluation: ./senti_eval.sh
 ---------------------------------------------------
 **\*\*\*\*\* New November 23rd, 2018: Un-normalized multilingual model + Thai +
