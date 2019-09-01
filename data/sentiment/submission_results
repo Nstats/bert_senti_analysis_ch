@@ -1,14 +1,45 @@
-score   pretrained      classifier      data_used   data_preprocessing          training_epoch  f1 on train paras
+nohup senti_train.sh > ./data/sentiment/output.txt 2>&1 &
+score   pretrained      classifier      data_used				training_epoch  paras
+************************************************1080ti*****************************************************
 08.26
-0.7437  wwm_ext         3_layer_MLP     only title  None                        10              0.9987      max_l64
-0.7598  wwm_ext         3_layer_MLP     only title  None                        100             0.9991      max_l64
+0.7437  wwm_ext         3_layer_MLP     title	  	                        10              max_l64 bs32
+0.7598  wwm_ext         3_layer_MLP     title  		                        100             max_l64 bs32
 
 08.27
-0.7763  wwm_ext         3_layer_MLP     mix         None                        85              0.9992      max_l64
-0.7742  wwm_ext         3_layer_MLP     mix         None                        100             0.9992      max_l64
-0.7686  wwm_ext         3_layer_MLP     mix         \n \t removed               65              0.9991      max_l64
-0.7744  wwm_ext         3_layer_MLP     mix         \n \t removed               100             0.9992      max_l64
-0.6695  wwm_ext         3_layer_MLP     content     \n \t removed               100             0.9989      max_l64
+0.7763  wwm_ext         3_layer_MLP     mix       	                        85              max_l64 bs32
+0.7742  wwm_ext         3_layer_MLP     mix		       	                100             max_l64 bs32
+0.7686  wwm_ext         3_layer_MLP     mix         		               	65              max_l64 bs32
+0.7744  wwm_ext         3_layer_MLP     mix         		               	100             max_l64 bs32
+0.6695  wwm_ext         3_layer_MLP     content     		               	100             max_l64 bs32
 
-0.7755  bert_ch         3_layer_MLP     mix         \n \t removed               85              0.9992      max_l64
-0.7743  bert_ch         3_layer_MLP     mix         \n \t removed               100             0.9992      max_l64
+0.7755  bert_ch         3_layer_MLP     mix         		              	85            	max_l64 bs32
+0.7743  bert_ch         3_layer_MLP     mix         		              	100             max_l64 bs32
+
+************************************************v100********************************************************
+08.29
+0.7546	bert_ch		3_layer_MLP	mix	    				50		max_l512 bs16
+0.7135	bert_ch		3_layer_MLP	mix	    				9		max_l512 bs16
+0.7419	wwm_ext		3_layer_MLP	mix	    				50		max_l512 bs16
+0.7155	wwm_ext		3_layer_MLP	mix	    				34		max_l512 bs16
+0.7106	wwm_ext		3_layer_MLP	train on mix pred on title		50		max_l512 bs16
+0.7545	wwm_ext		3_layer_MLP	mix					100		max_l64 bs32
+0.7361	wwm_ext		3_layer_MLP	mix					50		max_l64 bs32
+0.7530	wwm_ext		3_layer_MLP	train on mix v2	pred on title		100		max_l64 bs32
+0.7403	wwm_ext		3_layer_MLP	train on mix v2	pred on title		26		max_l64 bs32
+0.7557	wwm_ext		3_layer_MLP	train on mix v2	pred on title		50		max_l64 bs32
+0.7096	wwm_ext		3_layer_MLP	train on mix v2	pred on title		13		max_l64 bs32
+0.7700	wwm_ext		3_layer_MLP	mix v2					100		max_l64 bs32
+
+08.31
+0.7778	wwm_ext		3_layer_MLP	mix v2					100		max_l64 bs64
+0.7647	wwm_ext		3_layer_MLP	mix v2					100		max_l64 bs128
+
+0.7816	wwm_ext		3_layer_MLP	mix v2					100		max_l128 bs32
+0.7709	wwm_ext		3_layer_MLP	mix v2					100		max_l128 bs64
+	
+0.7795	wwm_ext		3_layer_MLP	mix v2					100		max_l256 bs16
+0.7789	wwm_ext		3_layer_MLP	mix v2					100		max_l256 bs32
+0.7891	wwm_ext		3_layer_MLP	mix v2					100		max_l256 bs64
+
+0.7781	wwm_ext		3_layer_MLP	mix v2					100		max_l512 bs16
+	wwm_ext		3_layer_MLP	mix v2					100		max_l512
