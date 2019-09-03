@@ -25,6 +25,7 @@ import modeling
 import optimization
 import tokenization
 import tensorflow as tf
+import tensorflow.contrib as tc
 import numpy as np
 import pandas as pd
 
@@ -88,6 +89,11 @@ flags.DEFINE_string(
 flags.DEFINE_string(
     'test_checkpoint_path', './data/sentiment/output/model.ckpt',
     'ckpt dir for testing.'
+)
+
+flags.DEFINE_string(
+    'classifier', 'MLP',
+    'classifier used for sentiment analysis, MLP or BiLSTM'
 )
 
 flags.DEFINE_bool(
@@ -436,7 +442,25 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   #
   # If you want to use the token-level output, use model.get_sequence_output()
   # instead.
-  output_layer = model.get_pooled_output()
+  if FLAGS.classifier == 'MLP':
+    output_layer = model.get_pooled_output()
+  else:
+    sequence_output = model.get_sequence_output()
+    rnn_cell_fw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_fw',
+                           1, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+    rnn_cell_bw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_bw',
+                           1, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+    outputs, states = tf.nn.bidirectional_dynamic_rnn(
+        rnn_cell_fw, rnn_cell_bw, sequence_output, dtype=tf.float32)
+    # outputs:([None, p_max_len, rnn_hidden_size], [None, p_max_len, rnn_hidden_size])
+    # states:((fw[None, rnn_hidden_size]*2), (bw[None, rnn_hidden_size]*2))
+
+    outputs = tf.concat(outputs, 2)  # [None, FLAGS.q_max_len, 2*rnn_hidden_size]
+    # useful_states = tf.concat((states[0][-1], states[1][-1]), -1)  # [None, 2*rnn_hidden_size]
+    ref = tf.get_variable('ref_vec', [2*sequence_output.shape[-1].value],
+                          initializer=tf.truncated_normal_initializer(stddev=0.02), trainable=True)
+    # output_layer = attend_pooling(outputs, ref_vector=ref, hidden_size=sequence_output.shape[-1].value)
+    output_layer = tf.concat((states[0][-1], states[1][-1]), -1)
 
   hidden_size = output_layer.shape[-1].value
 
@@ -617,6 +641,68 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
 
     features.append(feature)
   return features
+
+
+def get_cell(rnn_type, hidden_size, scope, layer_num, dp_keep_prob, training):
+    """
+    Gets the RNN Cell
+    Args:
+        rnn_type: 'lstm', 'gru' or 'rnn'
+        hidden_size: The size of hidden units
+        rnn_layer_num: MultiRNNCell are used if rnn_layer_num > 1
+        dropout_keep_prob: dropout in RNN
+    Returns:
+        cells: An RNN Cell
+    """
+    with tf.name_scope(scope):
+        cells = []
+        for i in range(layer_num):
+            if rnn_type.endswith('lstm'):
+                cell = tc.rnn.LSTMCell(num_units=hidden_size, state_is_tuple=True)
+            elif rnn_type.endswith('gru'):
+                cell = tc.rnn.GRUCell(num_units=hidden_size)
+            elif rnn_type.endswith('rnn'):
+                cell = tc.rnn.BasicRNNCell(num_units=hidden_size)
+            else:
+                raise NotImplementedError('Unsuported rnn type: {}'.format(rnn_type))
+            if training == True:
+                cell = tc.rnn.DropoutWrapper(
+                    cell, input_keep_prob=dp_keep_prob, output_keep_prob=dp_keep_prob)
+            cells.append(cell)
+        cells = tc.rnn.MultiRNNCell(cells, state_is_tuple=True)
+    return cells
+
+
+def attend_pooling(pooling_vectors, ref_vector, hidden_size, scope=None):
+    """
+    Applies attend pooling to a set of vectors according to a reference vector.
+    Args:
+        pooling_vectors: the vectors to pool
+        ref_vector: the reference vector
+        hidden_size: the hidden size for attention function
+        scope: score name
+    Returns:
+        the pooled vector
+    """
+    with tf.variable_scope(scope or 'attend_pooling'):
+        U = tf.tanh(tc.layers.fully_connected(pooling_vectors, num_outputs=hidden_size,
+                                              activation_fn=None, biases_initializer=None)
+                    + tc.layers.fully_connected(tf.expand_dims(ref_vector, 1),
+                                                num_outputs=hidden_size,
+                                                activation_fn=None))
+        logits = tc.layers.fully_connected(U, num_outputs=1, activation_fn=None)
+        scores = tf.nn.softmax(logits, 1)
+        pooled_vector = tf.reduce_sum(pooling_vectors * scores, axis=1)
+    return pooled_vector
+
+
+def bn(inputs, scope, epsilon=1e-5):
+    with tf.variable_scope(scope):
+        m, v = tf.nn.moments(inputs, -1, keep_dims=True)
+        offset = tf.get_variable('offset', [1], tf.float32, tf.constant_initializer(0.0))
+        scale = tf.get_variable('scale', [1], tf.float32, tf.constant_initializer(1.0))
+        outputs = tf.nn.batch_normalization(inputs, m, v, offset, scale, epsilon)
+    return outputs
 
 
 def main(_):

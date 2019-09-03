@@ -8,6 +8,7 @@ python senti_analysis.py \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=5 \
   --save_summary_steps=100 \
+  --classifier='MLP' \
   --output_dir='./data/sentiment/output_rmrb' \
   --bert_config_file='./data/pretrained_model/bert_ch_rmrb/bert_config.json' \
   --vocab_file='./data/pretrained_model/bert_ch_rmrb/vocab.txt' \
@@ -23,6 +24,7 @@ python senti_analysis.py \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=5 \
   --save_summary_steps=100 \
+  --classifier='MLP' \
   --output_dir='./data/sentiment/output_webqa' \
   --bert_config_file='./data/pretrained_model/bert_ch_webqa/bert_config.json' \
   --vocab_file='./data/pretrained_model/bert_ch_webqa/vocab.txt' \
@@ -38,6 +40,7 @@ python senti_analysis.py \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=5 \
   --save_summary_steps=100 \
+  --classifier='MLP' \
   --output_dir='./data/sentiment/output_webqa_balanced' \
   --bert_config_file='./data/pretrained_model/bert_ch_webqa/bert_config.json' \
   --vocab_file='./data/pretrained_model/bert_ch_webqa/vocab.txt' \
@@ -53,6 +56,7 @@ python senti_analysis.py \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=5 \
   --save_summary_steps=100 \
+  --classifier='MLP' \
   --output_dir='./data/sentiment/output_bert_original_balanced' \
   --bert_config_file='./data/pretrained_model/chinese_L-12_H-768_A-12/bert_config.json' \
   --vocab_file='./data/pretrained_model/chinese_L-12_H-768_A-12/vocab.txt' \
@@ -68,6 +72,7 @@ python senti_analysis.py \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=5 \
   --save_summary_steps=100 \
+  --classifier='MLP' \
   --output_dir='./data/sentiment/output_wwm_ext_balanced' \
   --bert_config_file='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/bert_config.json' \
   --vocab_file='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/vocab.txt' \
@@ -83,6 +88,7 @@ python senti_analysis.py \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=5 \
   --save_summary_steps=100 \
+  --classifier='MLP' \
   --output_dir='./data/sentiment/output_rmrb_balanced' \
   --bert_config_file='./data/pretrained_model/bert_ch_rmrb/bert_config.json' \
   --vocab_file='./data/pretrained_model/bert_ch_rmrb/vocab.txt' \
