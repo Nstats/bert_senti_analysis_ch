@@ -42,4 +42,7 @@ score   pretrained      classifier      data_used				training_epoch  paras
 0.7891	wwm_ext		3_layer_MLP	mix v2					100		max_l256 bs64
 
 0.7781	wwm_ext		3_layer_MLP	mix v2					100		max_l512 bs16
-	wwm_ext		3_layer_MLP	mix v2					100		max_l512
+
+09.02
+0.7967	wwm_ext		3_layer_MLP	mix v2					50		max_l300 bs56
+0.7887	bert_ch		3_layer_MLP	mix v2					50		max_l300 bs56

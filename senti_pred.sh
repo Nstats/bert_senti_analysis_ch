@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 python senti_analysis.py \
   --do_predict=True \
-  --max_seq_length=64 \
+  --max_seq_length=300 \
   --predict_batch_size=512 \
   --test_dir='test_mix.tsv' \
-  --output_dir='./data/sentiment/output64_64' \ 
-  --test_checkpoint_path='./data/sentiment/output64_64/model.ckpt-11468' \
+  --output_dir='./data/sentiment/output_bert' \
+  --test_checkpoint_path='./data/sentiment/output_bert/model.ckpt-6553' \
   --bert_config_file='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/bert_config.json' \
   --vocab_file='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/vocab.txt' \
   --init_checkpoint='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/bert_model.ckpt' \
