@@ -743,8 +743,10 @@ def main(_):
 
   tokenizer = tokenization.FullTokenizer(
       vocab_file=FLAGS.vocab_file, do_lower_case=FLAGS.do_lower_case)
-
+  gpu_options = tf.GPUOptions(allow_grouth=True)
+  session_config = tf.ConfigProto(gpu_options=gpu_options)
   run_config = tf.estimator.RunConfig(
+      session_config=session_config,
       save_summary_steps=FLAGS.save_summary_steps,
       model_dir=FLAGS.output_dir,
       save_checkpoints_steps=FLAGS.save_checkpoints_steps,
