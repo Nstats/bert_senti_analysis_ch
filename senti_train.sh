@@ -2,7 +2,7 @@
 python senti_analysis.py \
   --do_train=True \
   --max_seq_length=300 \
-  --train_batch_size=32 \
+  --train_batch_size=24 \
   --learning_rate=2e-5 \
   --num_train_epochs=40.0 \
   --save_checkpoints_steps=1000 \
@@ -19,7 +19,7 @@ python senti_analysis.py \
 python senti_analysis.py \
   --do_train=True \
   --max_seq_length=300 \
-  --train_batch_size=32 \
+  --train_batch_size=24 \
   --learning_rate=2e-5 \
   --num_train_epochs=40.0 \
   --save_checkpoints_steps=1000 \
@@ -36,7 +36,7 @@ python senti_analysis.py \
 python senti_analysis.py \
   --do_train=True \
   --max_seq_length=300 \
-  --train_batch_size=32 \
+  --train_batch_size=24 \
   --learning_rate=2e-5 \
   --num_train_epochs=40.0 \
   --save_checkpoints_steps=1000 \
