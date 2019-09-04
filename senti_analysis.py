@@ -92,8 +92,8 @@ flags.DEFINE_string(
 )
 
 flags.DEFINE_string(
-    'classifier', 'MLP',
-    'classifier used for sentiment analysis, MLP or BiLSTM'
+    'classifier', None,
+    'classifier used for sentiment analysis, MLP or others.'
 )
 
 flags.DEFINE_bool(
@@ -131,6 +131,13 @@ flags.DEFINE_float(
     "Proportion of training to perform linear learning rate warmup for. "
     "E.g., 0.1 = 10% of training.")
 
+flags.DEFINE_float(
+    'dp_keep_prob', 0.9, 'drouout keep rate in RNN.'
+)
+
+flags.DEFINE_integer(
+    'rnn_layers', 1, 'num of rnn layers in classifier.'
+)
 
 flags.DEFINE_integer("save_checkpoints_steps", 1000,
                      "How often to save the model checkpoint.")
@@ -447,9 +454,9 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   else:
     sequence_output = model.get_sequence_output()
     rnn_cell_fw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_fw',
-                           1, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+                           FLAGS.rnn_layers, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
     rnn_cell_bw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_bw',
-                           1, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+                           FLAGS.rnn_layers, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
     outputs, states = tf.nn.bidirectional_dynamic_rnn(
         rnn_cell_fw, rnn_cell_bw, sequence_output, dtype=tf.float32)
     # outputs:([None, p_max_len, rnn_hidden_size], [None, p_max_len, rnn_hidden_size])
@@ -461,6 +468,7 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
                           initializer=tf.truncated_normal_initializer(stddev=0.02), trainable=True)
     # output_layer = attend_pooling(outputs, ref_vector=ref, hidden_size=sequence_output.shape[-1].value)
     output_layer = tf.concat((states[0][-1], states[1][-1]), -1)
+    # output_layer = tf.concat((output_layer, model.get_pooled_output), -1)
 
   hidden_size = output_layer.shape[-1].value
 
@@ -474,7 +482,7 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   with tf.variable_scope("loss"):
     if is_training:
       # I.e., 0.1 dropout
-      output_layer = tf.nn.dropout(output_layer, keep_prob=0.9)
+      output_layer = tf.nn.dropout(output_layer, keep_prob=FLAGS.dp_keep_prob)
 
     logits = tf.matmul(output_layer, output_weights, transpose_b=True)
     logits = tf.nn.bias_add(logits, output_bias)
