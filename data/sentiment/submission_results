@@ -2,65 +2,65 @@ nohup senti_train.sh > ./data/sentiment/output.txt 2>&1 &
 score   pretrained      classifier      data_used				training_epoch  paras
 ************************************************1080ti*****************************************************
 08.26
-0.7437  wwm_ext         3_layer_MLP     title	  	                        10              max_l64 bs32
-0.7598  wwm_ext         3_layer_MLP     title  		                        100             max_l64 bs32
+0.7437  wwm_ext         MLP     title	  	                        10              max_l64 bs32
+0.7598  wwm_ext         MLP     title  		                        100             max_l64 bs32
 
 08.27
-0.7763  wwm_ext         3_layer_MLP     mix       	                        85              max_l64 bs32
-0.7742  wwm_ext         3_layer_MLP     mix		       	                100             max_l64 bs32
-0.7686  wwm_ext         3_layer_MLP     mix         		               	65              max_l64 bs32
-0.7744  wwm_ext         3_layer_MLP     mix         		               	100             max_l64 bs32
-0.6695  wwm_ext         3_layer_MLP     content     		               	100             max_l64 bs32
+0.7763  wwm_ext         MLP     mix       	                        85              max_l64 bs32
+0.7742  wwm_ext         MLP     mix		       	                100             max_l64 bs32
+0.7686  wwm_ext         MLP     mix         		               	65              max_l64 bs32
+0.7744  wwm_ext         MLP     mix         		               	100             max_l64 bs32
+0.6695  wwm_ext         MLP     content     		               	100             max_l64 bs32
 
-0.7755  bert_ch         3_layer_MLP     mix         		              	85            	max_l64 bs32
-0.7743  bert_ch         3_layer_MLP     mix         		              	100             max_l64 bs32
+0.7755  bert_ch         MLP     mix         		              	85            	max_l64 bs32
+0.7743  bert_ch         MLP     mix         		              	100             max_l64 bs32
 
 ************************************************v100********************************************************
 08.29
-0.7546	bert_ch		3_layer_MLP	mix	    				50		max_l512 bs16
-0.7135	bert_ch		3_layer_MLP	mix	    				9		max_l512 bs16
-0.7419	wwm_ext		3_layer_MLP	mix	    				50		max_l512 bs16
-0.7155	wwm_ext		3_layer_MLP	mix	    				34		max_l512 bs16
-0.7106	wwm_ext		3_layer_MLP	train on mix pred on title		50		max_l512 bs16
-0.7545	wwm_ext		3_layer_MLP	mix					100		max_l64 bs32
-0.7361	wwm_ext		3_layer_MLP	mix					50		max_l64 bs32
-0.7530	wwm_ext		3_layer_MLP	train on mix v2	pred on title		100		max_l64 bs32
-0.7403	wwm_ext		3_layer_MLP	train on mix v2	pred on title		26		max_l64 bs32
-0.7557	wwm_ext		3_layer_MLP	train on mix v2	pred on title		50		max_l64 bs32
-0.7096	wwm_ext		3_layer_MLP	train on mix v2	pred on title		13		max_l64 bs32
-0.7700	wwm_ext		3_layer_MLP	mix v2					100		max_l64 bs32
+0.7546	bert_ch		MLP	        mix	    				50		max_l512 bs16
+0.7135	bert_ch		MLP	        mix	    				9		max_l512 bs16
+0.7419	wwm_ext		MLP	        mix	    				50		max_l512 bs16
+0.7155	wwm_ext		MLP	        mix	    				34		max_l512 bs16
+0.7106	wwm_ext		MLP	        train on mix pred on title		50		max_l512 bs16
+0.7545	wwm_ext		MLP	        mix					100		max_l64 bs32
+0.7361	wwm_ext		MLP	        mix					50		max_l64 bs32
+0.7530	wwm_ext		MLP	        train on mix v2	pred on title		100		max_l64 bs32
+0.7403	wwm_ext		MLP	        train on mix v2	pred on title		26		max_l64 bs32
+0.7557	wwm_ext		MLP	        train on mix v2	pred on title		50		max_l64 bs32
+0.7096	wwm_ext		MLP	        train on mix v2	pred on title		13		max_l64 bs32
+0.7700	wwm_ext		MLP	        mix v2					100		max_l64 bs32
 
 08.31
-0.7778	wwm_ext		3_layer_MLP	mix v2					100		max_l64 bs64
-0.7647	wwm_ext		3_layer_MLP	mix v2					100		max_l64 bs128
-0.7816	wwm_ext		3_layer_MLP	mix v2					100		max_l128 bs32
-0.7709	wwm_ext		3_layer_MLP	mix v2					100		max_l128 bs64
-0.7795	wwm_ext		3_layer_MLP	mix v2					100		max_l256 bs16
-0.7789	wwm_ext		3_layer_MLP	mix v2					100		max_l256 bs32
-0.7891	wwm_ext		3_layer_MLP	mix v2					100		max_l256 bs64
-0.7781	wwm_ext		3_layer_MLP	mix v2					100		max_l512 bs16
+0.7778	wwm_ext		MLP	        mix v2					100		max_l64 bs64
+0.7647	wwm_ext		MLP	        mix v2					100		max_l64 bs128
+0.7816	wwm_ext		MLP	        mix v2					100		max_l128 bs32
+0.7709	wwm_ext		MLP	        mix v2					100		max_l128 bs64
+0.7795	wwm_ext		MLP	        mix v2					100		max_l256 bs16
+0.7789	wwm_ext		MLP	        mix v2					100		max_l256 bs32
+0.7891	wwm_ext		MLP	        mix v2					100		max_l256 bs64
+0.7781	wwm_ext		MLP	        mix v2					100		max_l512 bs16
 
 09.02
-0.7967	wwm_ext		3_layer_MLP	mix v2					50		max_l300 bs56
-0.7887	bert_ch		3_layer_MLP	mix v2					50		max_l300 bs56
+0.7967	wwm_ext		MLP	        mix v2					50		max_l300 bs56
+0.7887	bert_ch		MLP	        mix v2					50		max_l300 bs56
 
 09.03
-0.7887	bert_ch		3_layer_MLP	mix v2					50		max_l300 bs56
-0.7828	bert_ch		3_layer_MLP	mix v2 balanced				50		max_l300 bs56
-0.7937	wwm_ext		3_layer_MLP	mix v2					50		max_l300 bs56
-0.7976	wwm_ext		3_layer_MLP	mix v2 balanced				50		max_l300 bs56
-0.7865	rmrb		3_layer_MLP	mix v2					50		max_l300 bs56
-0.7940	rmrb		3_layer_MLP	mix v2 balanced				50		max_l300 bs56
-0.7868	webqa		3_layer_MLP	mix v2					50		max_l300 bs56
-0.7870	webqa		3_layer_MLP	mix v2 balanced				50		max_l300 bs56
+0.7887	bert_ch		MLP	        mix v2					50		max_l300 bs56
+0.7828	bert_ch		MLP	        mix v2 balanced				50		max_l300 bs56
+0.7937	wwm_ext		MLP	        mix v2					50		max_l300 bs56
+0.7976	wwm_ext		MLP	        mix v2 balanced				50		max_l300 bs56
+0.7865	rmrb		MLP	        mix v2					50		max_l300 bs56
+0.7940	rmrb		MLP	        mix v2 balanced				50		max_l300 bs56
+0.7868	webqa		MLP	        mix v2					50		max_l300 bs56
+0.7870	webqa		MLP	        mix v2 balanced				50		max_l300 bs56
 
 09.04	
 0.7881	wwm_ext		BiGru		mix v2					50		max_l300 bs32
-0.7947	wwm_ext		3_layer_MLP	mix v2 balanced				50		max_l300 bs32
-0.7818	wwm_ext		BiGru		mix v2 balanced				50		max_l300 bs32
-0.7170	wwm_ext		2lBiGru		mix v2 balanced				50		max_l300 bs32
-	wwm_ext		2lBiGru Highway	mix v2 balanced				50		max_l3oo bs32
-
+0.7947	wwm_ext		MLP	        mix v2 balanced				40		max_l300 bs24
+    	wwm_ext		BiGru		mix v2 balanced				40		max_l300 bs24
+    	wwm_ext		2lBiGru		mix v2 balanced				40		max_l300 bs24
+	    wwm_ext		seq_out_MLP	mix v2 balanced				40		max_l300 bs24
+        wwm_ext     BiGru+highway                           40      max_l300 bs24
 
 
 
