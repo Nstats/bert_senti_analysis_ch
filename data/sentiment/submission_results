@@ -56,9 +56,9 @@ score   pretrained      classifier      data_used				training_epoch  paras
 
 09.04	
 0.7881	wwm_ext		BiGru		mix v2					50		max_l300 bs32
-	wwm_ext		3_layer_MLP	mix v2 balanced				50		max_l300 bs32
-	wwm_ext		BiGru		mix v2 balanced				50		max_l300 bs32
-	wwm_ext		2lBiGru		mix v2 balanced				50		max_l300 bs32
+0.7947	wwm_ext		3_layer_MLP	mix v2 balanced				50		max_l300 bs32
+0.7818	wwm_ext		BiGru		mix v2 balanced				50		max_l300 bs32
+0.7170	wwm_ext		2lBiGru		mix v2 balanced				50		max_l300 bs32
 	wwm_ext		2lBiGru Highway	mix v2 balanced				50		max_l3oo bs32
 
 
