@@ -494,7 +494,8 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
       ref = tf.get_variable('ref_vec', [2 * sequence_output.shape[-1].value],
                             initializer=tf.truncated_normal_initializer(stddev=0.02), trainable=True)
       # output_layer = attend_pooling(outputs, ref_vector=ref, hidden_size=sequence_output.shape[-1].value)
-      output_layer_ = tf.concat((states[0][-1],states[1][-1], model.get_pooled_output), -1)
+      output_layer_ = tf.concat(
+          (states[0][-1], states[1][-1], tf.squeeze(model.sequence_output[:, 0:1, :], axis=1)), -1)
       output_layer = tf.layers.dense(output_layer_,
                                      bert_config.hidden_size,
                                      tf.nn.tanh,
