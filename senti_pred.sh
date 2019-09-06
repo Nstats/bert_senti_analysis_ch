@@ -3,10 +3,10 @@ python senti_analysis.py \
   --do_predict=True \
   --max_seq_length=300 \
   --predict_batch_size=512 \
-  --classifier='BiLSTM' \
+  --classifier='seq_out_MLP' \
   --test_dir='test_mix.tsv' \
-  --output_dir='./data/sentiment/output' \
-  --test_checkpoint_path='./data/sentiment/output/model.ckpt-11468' \
+  --output_dir='./data/sentiment/output_wwm_ext_seq_out_MLP' \
+  --test_checkpoint_path='./data/sentiment/output_wwm_ext_seq_out_MLP/model.ckpt-18258' \
   --bert_config_file='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/bert_config.json' \
   --vocab_file='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/vocab.txt' \
   --init_checkpoint='./data/pretrained_model/chinese_L-12_H-768_A-12/bert_model.ckpt'; \

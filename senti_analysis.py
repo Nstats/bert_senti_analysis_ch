@@ -455,8 +455,7 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   elif FLAGS.classifier == 'seq_out_MLP':
     seq_out = model.get_sequence_output()
     output_layer = tf.squeeze(
-        tf.layers.dense(seq_out, 1, tf.nn.tanh,
-                        kernel_initializer=tf.truncated_normal_initializer(stddev=0.02))
+        tf.layers.dense(seq_out, 1, tf.nn.tanh,kernel_initializer=tf.truncated_normal_initializer(stddev=0.02))
     )  # [batch_size, max_sequence_length]
 
   elif FLAGS.classifier == 'BiGRU':
@@ -495,8 +494,8 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
       ref = tf.get_variable('ref_vec', [2 * sequence_output.shape[-1].value],
                             initializer=tf.truncated_normal_initializer(stddev=0.02), trainable=True)
       # output_layer = attend_pooling(outputs, ref_vector=ref, hidden_size=sequence_output.shape[-1].value)
-      output_layer_ = tf.concat((states[0][-1], states[1][-1]), -1)
-      output_layer = tf.layers.dense(tf.concat((output_layer_, model.get_pooled_output), -1),
+      output_layer_ = tf.concat((states[0][-1],states[1][-1], model.get_pooled_output), -1)
+      output_layer = tf.layers.dense(output_layer_,
                                      bert_config.hidden_size,
                                      tf.nn.tanh,
                                      kernel_initializer=tf.truncated_normal_initializer(stddev=0.02))
