@@ -61,6 +61,6 @@ score   pretrained      classifier      data_used				training_epoch  paras
     	wwm_ext		2lBiGru+MLP	mix v2 balanced				40		max_l300 bs24
 	wwm_ext		seq_out_MLP	mix v2 balanced				40		max_l300 bs24
         wwm_ext     	BiGru+highway   mix v2 balanced	                        40		max_l300 bs24
-
+0.7853	RoBERTa		MLP		mix v2 balanced				40		max_l300 bs24
 
 
