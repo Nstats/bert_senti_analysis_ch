@@ -131,10 +131,6 @@ flags.DEFINE_float(
     "Proportion of training to perform linear learning rate warmup for. "
     "E.g., 0.1 = 10% of training.")
 
-flags.DEFINE_float(
-    'dp_keep_prob', 0.9, 'drouout keep rate in RNN.'
-)
-
 flags.DEFINE_integer(
     'rnn_layers', 1, 'num of rnn layers in classifier.'
 )
@@ -453,17 +449,22 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
     output_layer = model.get_pooled_output()
 
   elif FLAGS.classifier == 'seq_out_MLP':
-    seq_out = model.get_sequence_output()
-    output_layer = tf.squeeze(
-        tf.layers.dense(seq_out, 1, tf.nn.tanh,kernel_initializer=tf.truncated_normal_initializer(stddev=0.02))
-    )  # [batch_size, max_sequence_length]
+    seq_out = tf.transpose(model.get_sequence_output(), [0, 2, 1])  # [batch_size, hidden_size, max_seq_length]
+    hidden_layer = tf.squeeze(tf.layers.dense(seq_out, 1, tf.nn.tanh, use_bias=False,
+                                              kernel_initializer=tf.truncated_normal_initializer(stddev=0.02)))
+    # [batch_size, hidden_size]
+    if is_training:
+        hidden_layer = tf.nn.dropout(hidden_layer, keep_prob=1 - bert_config.hidden_dropout_prob)
+    output_layer = tf.layers.dense(hidden_layer, bert_config.hidden_size, tf.nn.tanh,
+                                   kernel_initializer=tf.truncated_normal_initializer(stddev=0.02))
+    # [batch_size, hidden_size]
 
   elif FLAGS.classifier == 'BiGRU':
     sequence_output = model.get_sequence_output()
     rnn_cell_fw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_fw',
-                           FLAGS.rnn_layers, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+                           FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prBiGRUob, training=is_training)
     rnn_cell_bw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_bw',
-                           FLAGS.rnn_layers, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+                           FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prob, training=is_training)
     outputs, states = tf.nn.bidirectional_dynamic_rnn(
         rnn_cell_fw, rnn_cell_bw, sequence_output, dtype=tf.float32)
     # outputs:([None, p_max_len, rnn_hidden_size], [None, p_max_len, rnn_hidden_size])
@@ -471,8 +472,8 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
 
     outputs = tf.concat(outputs, 2)  # [None, FLAGS.q_max_len, 2*rnn_hidden_size]
     # useful_states = tf.concat((states[0][-1], states[1][-1]), -1)  # [None, 2*rnn_hidden_size]
-    ref = tf.get_variable('ref_vec', [2*sequence_output.shape[-1].value],
-                          initializer=tf.truncated_normal_initializer(stddev=0.02), trainable=True)
+    # ref = tf.get_variable('ref_vec', [2*sequence_output.shape[-1].value],
+    #                       initializer=tf.truncated_normal_initializer(stddev=0.02), trainable=True)
     # output_layer = attend_pooling(outputs, ref_vector=ref, hidden_size=sequence_output.shape[-1].value)
     output_layer_ = tf.concat((states[0][-1], states[1][-1]), -1)
     output_layer = tf.layers.dense(output_layer_, bert_config.hidden_size,
@@ -481,9 +482,9 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   elif FLAGS.classifier == 'BiGRU+highway':
       sequence_output = model.get_sequence_output()
       rnn_cell_fw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_fw',
-                             FLAGS.rnn_layers, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+                             FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prob, training=is_training)
       rnn_cell_bw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_bw',
-                             FLAGS.rnn_layers, dp_keep_prob=FLAGS.dp_keep_prob, training=is_training)
+                             FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prob, training=is_training)
       outputs, states = tf.nn.bidirectional_dynamic_rnn(
           rnn_cell_fw, rnn_cell_bw, sequence_output, dtype=tf.float32)
       # outputs:([None, p_max_len, rnn_hidden_size], [None, p_max_len, rnn_hidden_size])
@@ -516,7 +517,7 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   with tf.variable_scope("loss"):
     if is_training:
       # I.e., 0.1 dropout
-      output_layer = tf.nn.dropout(output_layer, keep_prob=FLAGS.dp_keep_prob)
+      output_layer = tf.nn.dropout(output_layer, keep_prob=1-bert_config.hidden_dropout_prob)
 
     logits = tf.matmul(output_layer, output_weights, transpose_b=True)
     logits = tf.nn.bias_add(logits, output_bias)
