@@ -69,7 +69,7 @@ python senti_analysis.py \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
-  --classifier='BiGRU+highway' \
+  --classifier='BiGRU_highway' \
   --rnn_layers=1 \
   --output_dir='./data/sentiment/output_wwm_ext_BiGru_highway_2' \
   --bert_config_file='./data/pretrained_model/chinese_wwm_ext_L-12_H-768_A-12/bert_config.json' \

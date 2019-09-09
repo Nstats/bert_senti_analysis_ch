@@ -464,7 +464,7 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
   elif FLAGS.classifier == 'BiGRU':
     sequence_output = model.get_sequence_output()
     rnn_cell_fw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_fw',
-                           FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prBiGRUob, training=is_training)
+                           FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prob, training=is_training)
     rnn_cell_bw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_bw',
                            FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prob, training=is_training)
     outputs, states = tf.nn.bidirectional_dynamic_rnn(
@@ -481,7 +481,7 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
     output_layer = tf.layers.dense(output_layer_, bert_config.hidden_size,
                                    tf.nn.tanh, kernel_initializer=tf.truncated_normal_initializer(stddev=0.02))
 
-  elif FLAGS.classifier == 'BiGRU+highway':
+  elif FLAGS.classifier == 'BiGRU_highway':
       sequence_output = model.get_sequence_output()
       rnn_cell_fw = get_cell('gru', sequence_output.shape[-1].value, 'rnn_cell_fw',
                              FLAGS.rnn_layers, dp_keep_prob=1-bert_config.hidden_dropout_prob, training=is_training)
