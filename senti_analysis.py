@@ -455,7 +455,9 @@ def create_model(bert_config, is_training, input_ids, input_mask, segment_ids,
     # [batch_size, hidden_size]
     if is_training:
         hidden_layer = tf.nn.dropout(hidden_layer, keep_prob=1 - bert_config.hidden_dropout_prob)
-    output_layer = tf.layers.dense(hidden_layer, bert_config.hidden_size, tf.nn.tanh,
+    output_layer = tf.layers.dense(tf.reshape(hidden_layer, [-1, hidden_layer.shape[-1].value]),
+                                   bert_config.hidden_size,
+                                   tf.nn.tanh,
                                    kernel_initializer=tf.truncated_normal_initializer(stddev=0.02))
     # [batch_size, hidden_size]
 
