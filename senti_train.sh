@@ -5,7 +5,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -25,7 +25,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -45,7 +45,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -65,7 +65,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -77,7 +77,7 @@ python senti_analysis.py \
   --init_checkpoint='./data/pretrained_model/roberta_zh_L-24_H-1024_A-16/bert_model.ckpt' \
   --train_dir='train_mix_balanced.tsv' \
   --test_dir='test_mix.tsv' \
-  --test_checkpoint_path='./data/sentiment/output_RoBERTa_large_MLP/model.ckpt-18258'; \
+  --test_checkpoint_path='./data/sentiment/output_RoBERTa_large_MLP/model.ckpt-9129'; \
 
 python senti_analysis.py \
   --do_train=True \
@@ -85,7 +85,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -97,7 +97,7 @@ python senti_analysis.py \
   --init_checkpoint='./data/pretrained_model/roberta_zh_L-24_H-1024_A-16/bert_model.ckpt' \
   --train_dir='train_mix_balanced.tsv' \
   --test_dir='test_mix.tsv' \
-  --test_checkpoint_path='./data/sentiment/output_RoBERTa_large_BiGRU/model.ckpt-18258'; \
+  --test_checkpoint_path='./data/sentiment/output_RoBERTa_large_BiGRU/model.ckpt-9129'; \
 
 python senti_analysis.py \
   --do_train=True \
@@ -105,7 +105,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -117,7 +117,7 @@ python senti_analysis.py \
   --init_checkpoint='./data/pretrained_model/roberta_zh_L-24_H-1024_A-16/bert_model.ckpt' \
   --train_dir='train_mix_balanced.tsv' \
   --test_dir='test_mix.tsv' \
-  --test_checkpoint_path='./data/sentiment/output_RoBERTa_large_BiGRU_highway/model.ckpt-18258'; \
+  --test_checkpoint_path='./data/sentiment/output_RoBERTa_large_BiGRU_highway/model.ckpt-9129'; \
 
 python senti_analysis.py \
   --do_train=True \
@@ -125,7 +125,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -137,7 +137,7 @@ python senti_analysis.py \
   --init_checkpoint='./data/pretrained_model/roberta_zh_L-24_H-1024_A-16/bert_model.ckpt' \
   --train_dir='tdt_train_mix_balanced.tsv' \
   --test_dir='tdt_test_mix.tsv' \
-  --test_checkpoint_path='./data/sentiment/tdt_RoBERTa_large_MLP/model.ckpt-18258'; \
+  --test_checkpoint_path='./data/sentiment/tdt_RoBERTa_large_MLP/model.ckpt-9129'; \
 
 python senti_analysis.py \
   --do_train=True \
@@ -145,7 +145,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -157,7 +157,7 @@ python senti_analysis.py \
   --init_checkpoint='./data/pretrained_model/roberta_zh_L-24_H-1024_A-16/bert_model.ckpt' \
   --train_dir='tdt_train_mix_balanced.tsv' \
   --test_dir='tdt_test_mix.tsv' \
-  --test_checkpoint_path='./data/sentiment/tdt_RoBERTa_large_BiGRU/model.ckpt-18258'; \
+  --test_checkpoint_path='./data/sentiment/tdt_RoBERTa_large_BiGRU/model.ckpt-9129'; \
 
 python senti_analysis.py \
   --do_train=True \
@@ -165,7 +165,7 @@ python senti_analysis.py \
   --max_seq_length=300 \
   --train_batch_size=24 \
   --learning_rate=2e-5 \
-  --num_train_epochs=40.0 \
+  --num_train_epochs=20.0 \
   --save_checkpoints_steps=1000 \
   --keep_checkpoint_max=1 \
   --save_summary_steps=100 \
@@ -177,7 +177,7 @@ python senti_analysis.py \
   --init_checkpoint='./data/pretrained_model/roberta_zh_L-24_H-1024_A-16/bert_model.ckpt' \
   --train_dir='tdt_train_mix_balanced.tsv' \
   --test_dir='tdt_test_mix.tsv' \
-  --test_checkpoint_path='./data/sentiment/tdt_RoBERTa_large_BiGRU_highway/model.ckpt-18258'; \
+  --test_checkpoint_path='./data/sentiment/tdt_RoBERTa_large_BiGRU_highway/model.ckpt-9129'; \
 
 :<<annotation
 annotation
