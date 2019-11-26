@@ -55,26 +55,26 @@ score   pretrained      classifier      data_used				training_epoch  paras
 0.7870	webqa		MLP	        mix v2 balanced				50		max_l300 bs56
 
 09.04	
-0.7881	wwm_ext		BiGru		mix v2					50		max_l300 bs32
+0.7881	wwm_ext		BiGRU		mix v2					50		max_l300 bs32
 0.7947	wwm_ext		MLP	        mix v2 balanced				40		max_l300 bs24
-0.7959  wwm_ext		BiGru_MLP	mix v2 balanced				40		max_l300 bs24
+0.7959  wwm_ext		BiGRU_MLP	mix v2 balanced				40		max_l300 bs24
 0.7957
-0.7854	wwm_ext		2lBiGru_MLP	mix v2 balanced				40		max_l300 bs24
+0.7854	wwm_ext		2lBiGRU_MLP	mix v2 balanced				40		max_l300 bs24
 0.7851
 	wwm_ext		seq_out_MLP	mix v2 balanced				40		max_l300 bs24
-0.7863  wwm_ext     	BiGru_highway   mix v2 balanced	                        40		max_l300 bs24
+0.7863  wwm_ext     	BiGRU_highway   mix v2 balanced	                        40		max_l300 bs24
 0.7879
 0.7853	RoBERTa		MLP		mix v2 balanced				40		max_l300 bs24
 
 09.10
-        wwm_ext    	MLP     	tdt mix balanced            		40      	max_l300 bs24
-        wwm_ext    	BiGRU   	tdt mix balanced            		40      	max_l300 bs24
-        wwm_ext     	BiGRU_highway   tdt mix balanced    			40      	max_l300 bs24
+0.7925  wwm_ext    	MLP     	tdt mix balanced            		40      	max_l300 bs24
+0.7901	wwm_ext    	BiGRU   	tdt mix balanced            		40      	max_l300 bs24
+0.7835	wwm_ext     	BiGRU_highway   tdt mix balanced    			40      	max_l300 bs24
 
-        RoBERTa_large   MLP     	mix v2 balanced             		20          	max_l300 bs24
-        RoBERTa_large   BiGRU   	mix v2 balanced             		20          	max_l300 bs24
-        RoBERTa_large   BiGRU_highway   mix v2 balanced             		20          	max_l300 bs24
+	RoBERTa_large   MLP     	mix v2 balanced             		20          	max_l200 bs24
+0.7920	RoBERTa_large   BiGRU   	mix v2 balanced             		20          	max_l200 bs24
+0.7942	RoBERTa_large   BiGRU_highway   mix v2 balanced             		20          	max_l200 bs24
 
-        RoBERTa_large   MLP     	tdt mix balanced           		20          	max_l300 bs24
-        RoBERTa_large   BiGRU     	tdt mix balanced         		20          	max_l300 bs24
-        RoBERTa_large   BiGRU_highway   tdt mix balanced 			20          	max_l300 bs24
+0.7870	RoBERTa_large   MLP     	tdt mix balanced           		20          	max_l200 bs24
+0.7901	RoBERTa_large   BiGRU     	tdt mix balanced         		20          	max_l200 bs24
+0.7835	RoBERTa_large   BiGRU_highway   tdt mix balanced 			20          	max_l200 bs24
